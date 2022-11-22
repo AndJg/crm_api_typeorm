@@ -5,13 +5,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { BillingAddress } from 'src/billing_address/billingAddressess.entity';
 
 @Entity()
-class User {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -35,7 +38,14 @@ class User {
     eager: true,
     cascade: true,
   })
+  @JoinColumn()
   subscription: Subscription;
+
+  @OneToMany(
+    () => BillingAddress,
+    (billingAddress: BillingAddress) => billingAddress.user,
+  )
+  billingAddressess: BillingAddress[];
 
   @Column({
     type: 'enum',
@@ -53,5 +63,3 @@ class User {
   @Column({ default: false })
   isEmailConfirmed: boolean;
 }
-
-export default User;

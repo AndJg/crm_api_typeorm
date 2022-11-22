@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/users.entity';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Subscription {
@@ -25,4 +26,7 @@ export class Subscription {
 
   @Column()
   defaultPaymentMethod: string;
+
+  @OneToOne(() => User, (user: User) => user.subscription)
+  user?: User;
 }
