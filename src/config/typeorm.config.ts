@@ -1,5 +1,4 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from 'src/users/users.entity';
 
 const port: number = parseInt(<string>process.env.PORT) || 3306;
 
@@ -10,7 +9,9 @@ export const typeormConnectionConfig: TypeOrmModuleOptions = {
   username: 'junior_task',
   password: 'test',
   database: 'crm_api',
-  entities: ['dist/**/*.entity{.ts,.js}'], 
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  // entities: ['src/**/*.entity.ts'],
   synchronize: true,
+  autoLoadEntities: true,
   timezone: 'utc',
 };

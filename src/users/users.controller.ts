@@ -10,21 +10,21 @@ import { UserService } from './users.service';
 import { User } from './users.entity';
 import { CreateUserDto } from './dto/createUserDto';
 
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
+  @Get(':id')
   async getOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.userService.getById(id);
   }
 
-  @Get()
+  @Get('email/:email')
   async getOneByEmail(@Param('email') email: string): Promise<User> {
     return this.userService.getByEmail(email);
   }
 
-  @Post()
+  @Post('create')
   async create(@Body() user: CreateUserDto): Promise<User> {
     return this.userService.create(user);
   }

@@ -1,9 +1,9 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BillingAddress } from './billingAddressess.entity';
 
 @Entity()
 export class BillingAddressDetails {
-  @Column()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

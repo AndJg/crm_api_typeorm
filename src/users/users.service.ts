@@ -11,9 +11,8 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async getByEmail(email: string): Promise<User> {
-    const user = await this.userRepository.findOneByOrFail({ email });
-
+  async getByEmail(email: string): Promise<any> {
+    const user = await this.userRepository.findOne({ where: { email: email } });
     if (user) {
       return user;
     }
@@ -24,7 +23,7 @@ export class UserService {
   }
 
   async getById(id: number) {
-    const user = await this.userRepository.findOneByOrFail({ id });
+    const user = await this.userRepository.findOneBy({ id });
 
     if (user) {
       return user;
