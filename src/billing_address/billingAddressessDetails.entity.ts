@@ -16,6 +16,9 @@ export class BillingAddressDetails {
   email: string;
 
   @Column()
+  phone: string;
+
+  @Column()
   vatId: string;
 
   @OneToOne(
