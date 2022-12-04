@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { User } from 'src/users/users.entity';
 import { UserService } from 'src/users/users.service';
 import { AuthenticationService } from './authentication.service';
@@ -12,7 +12,7 @@ export class AuthenticationController {
   ) {}
 
   @Post('register')
-  async register(registrationData: RegisterDto): Promise<User> {
+  async register(@Body() registrationData: RegisterDto): Promise<User> {
     const user = await this.authService.Register(registrationData);
     return user;
   }

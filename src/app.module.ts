@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeormConnectionConfig } from './config/typeorm.config';
 import { UserModule } from './users/users.module';
 import { SubscriptionModule } from './subscriptions/subscriptions.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -13,4 +19,10 @@ import { AuthenticationModule } from './authentication/authentication.module';
     AuthenticationModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
