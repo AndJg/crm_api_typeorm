@@ -11,8 +11,23 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
+  //TODO: STOP RETURIING USER OBJECT WITH PASSWORD
   async getByEmail(email: string): Promise<any> {
     const user = await this.userRepository.findOne({ where: { email: email } });
+    if (user) {
+      return user;
+    }
+    throw new HttpException(
+      'User with this email does not exist',
+      HttpStatus.NOT_FOUND,
+    );
+  }
+
+  //TODO: STOP RETURIING USER OBJECT WITH PASSWORD
+  async getByUsername(username: string): Promise<any> {
+    const user = await this.userRepository.findOne({
+      where: { name: username },
+    });
     if (user) {
       return user;
     }
