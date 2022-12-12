@@ -10,9 +10,11 @@ import { UserModule } from './users/users.module';
 import { SubscriptionModule } from './subscriptions/subscriptions.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot(typeormConnectionConfig),
     UserModule,
     SubscriptionModule,
