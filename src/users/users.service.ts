@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/createUserDto';
@@ -17,11 +17,10 @@ export class UserService {
     if (user) {
       return user;
     }
-    throw new HttpException(
-      'User with this email does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+
+    throw new BadRequestException('User with this email does not exist');
   }
+
 
   //TODO: STOP RETURIING USER OBJECT WITH PASSWORD
   async getByUsername(username: string): Promise<any> {
@@ -31,10 +30,7 @@ export class UserService {
     if (user) {
       return user;
     }
-    throw new HttpException(
-      'User with this email does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+    throw new BadRequestException('User does not exist');
   }
 
   async getById(id: number) {
@@ -43,10 +39,7 @@ export class UserService {
     if (user) {
       return user;
     }
-    throw new HttpException(
-      'User with this id does not exist',
-      HttpStatus.NOT_FOUND,
-    );
+    throw new BadRequestException('User does not exist');
   }
 
   async create(user: CreateUserDto): Promise<User> {

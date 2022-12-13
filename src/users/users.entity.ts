@@ -68,4 +68,7 @@ export class User {
 
   @Column({ default: false })
   isEmailConfirmed: boolean;
+
+  @Column()
+  refreshToken: string;
 }

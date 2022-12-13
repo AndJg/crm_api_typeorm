@@ -5,17 +5,19 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeormConnectionConfig } from './config/typeorm.config';
 import { UserModule } from './users/users.module';
 import { SubscriptionModule } from './subscriptions/subscriptions.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseConfiguration } from './config/databaseConfiguration,.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(typeormConnectionConfig),
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseConfiguration,
+    }),
     UserModule,
     SubscriptionModule,
     AuthenticationModule,

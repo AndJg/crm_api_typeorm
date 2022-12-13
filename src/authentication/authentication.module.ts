@@ -7,14 +7,7 @@ import { AuthenticationService } from './authentication.service';
 import { LocalStrategy } from './local.authentication';
 
 @Module({
-  imports: [
-    UserModule,
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '60s' },
-    }),
-  ],
+  imports: [UserModule, PassportModule, JwtModule.register({})],
   providers: [AuthenticationService, LocalStrategy],
   controllers: [AuthenticationController],
   exports: [AuthenticationService],
