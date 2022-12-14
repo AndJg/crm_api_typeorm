@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/users/users.entity';
 import { UserService } from 'src/users/users.service';
 import { AuthenticationService } from './authentication.service';
+import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 
 @Controller('authentication')
@@ -14,13 +15,17 @@ export class AuthenticationController {
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto): Promise<User> {
-    const user = await this.authService.Register(registrationData);
-    return user;
+    return await this.authService.Register(registrationData);
   }
 
-  @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Req() req) {
-    return this.authService.loginWithCredentials(req.user);
+  signin(@Body() data: LoginDto) {
+    return this.authService.login(data);
   }
+
+  //   @UseGuards(AuthGuard('local'))
+  //   @Post('login')
+  //   async login(@Req() req) {
+  //     return this.authService.loginWithCredentials(req.user);
+  //   }
 }
